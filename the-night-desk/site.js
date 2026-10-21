@@ -1,6 +1,39 @@
 (() => {
   'use strict';
 
+  const header = document.querySelector('.site-header');
+  const menu = document.getElementById('main-nav');
+  const menuToggle = document.querySelector('.menu-toggle');
+  const closeMenu = () => {
+    menu?.classList.remove('is-open');
+    menuToggle?.setAttribute('aria-expanded', 'false');
+  };
+  menuToggle?.addEventListener('click', () => {
+    const open = menuToggle.getAttribute('aria-expanded') !== 'true';
+    menuToggle.setAttribute('aria-expanded', String(open));
+    menu?.classList.toggle('is-open', open);
+  });
+  menu?.addEventListener('click', (event) => {
+    if (event.target.closest('a')) closeMenu();
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && menuToggle?.getAttribute('aria-expanded') === 'true') {
+      closeMenu();
+      menuToggle.focus();
+    }
+  });
+  const updateHeader = () => header?.classList.toggle('is-scrolled', window.scrollY > 30);
+  window.addEventListener('scroll', updateHeader, { passive: true });
+  updateHeader();
+
+  const preview = document.getElementById('gameplay-video');
+  for (const link of document.querySelectorAll('[data-play-preview]')) {
+    link.addEventListener('click', () => {
+      // Playback follows an explicit user gesture; the native controls remain available.
+      preview?.play().catch(() => {});
+    });
+  }
+
   const cases = {
     carbon: {
       image: 'carbon-copy.png',
