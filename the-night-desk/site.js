@@ -28,9 +28,16 @@
 
   const preview = document.getElementById('gameplay-video');
   for (const link of document.querySelectorAll('[data-play-preview]')) {
-    link.addEventListener('click', () => {
+    link.addEventListener('click', (event) => {
       // Playback follows an explicit user gesture; the native controls remain available.
       if (!preview) return;
+      if (window.matchMedia('(max-width: 700px)').matches) {
+        event.preventDefault();
+        preview.scrollIntoView({
+          block: 'center',
+          behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
+        });
+      }
       preview.muted = false;
       if (preview.ended) preview.currentTime = 0;
       preview.play().then(() => {
