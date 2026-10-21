@@ -103,3 +103,24 @@
   .site-footer div { flex-wrap: wrap; font-size: 12px; }
 }
 @media (prefers-reduced-motion: reduce) { .site-header { transition: none; } }
+
+/* Portrait trailer: preserve the approved full frame on every screen. */
+.gameplay-section{grid-template-columns:minmax(0,1fr) minmax(0,380px);gap:clamp(32px,7vw,100px);align-items:center}
+.gameplay-copy{display:block;min-width:0}
+.gameplay-copy h2{margin-bottom:24px}
+.gameplay-copy .gameplay-meta{margin:26px 0 20px!important}
+.gameplay-player{width:100%;max-width:380px;justify-self:center;overflow:hidden;border-radius:10px}
+.gameplay-player video{width:100%;height:auto;max-width:none;max-height:none;aspect-ratio:9/16;object-fit:contain}
+.player-topline{padding:12px;font-size:8px;gap:8px}
+.gameplay-player figcaption{display:block;padding:12px;font-size:11px}
+.gameplay-player figcaption span{display:block}
+.gameplay-player figcaption span+span{margin-top:4px}
+.trailer-play{cursor:pointer;font:700 12px/1.4 Arial,sans-serif;min-height:48px}
+.gameplay-copy .trailer-status{min-height:1.5em;font-size:12px}
+@media(max-width:700px){
+ .gameplay-section{grid-template-columns:minmax(0,1fr);gap:20px}
+ .gameplay-player{max-width:340px}
+ .gameplay-copy .gameplay-meta{margin:20px 0 16px!important}
+ .gameplay-copy .trailer-status:empty{display:none}
+ .hero-actions .button{font-size:10px;letter-spacing:.05em}
+}

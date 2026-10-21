@@ -30,7 +30,14 @@
   for (const link of document.querySelectorAll('[data-play-preview]')) {
     link.addEventListener('click', () => {
       // Playback follows an explicit user gesture; the native controls remain available.
-      preview?.play().catch(() => {});
+      if (!preview) return;
+      preview.muted = false;
+      if (preview.ended) preview.currentTime = 0;
+      preview.play().then(() => {
+        document.getElementById('trailer-status').textContent = '';
+      }).catch(() => {
+        document.getElementById('trailer-status').textContent = 'Use the video controls to start the trailer.';
+      });
     });
   }
 
